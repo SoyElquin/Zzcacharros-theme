@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "Zzcacharros",
-    "theme_version": "1.0.0",
+    "theme_version": "2.0.0",
     "theme_author": "Zzcacharros",
     "theme_documentation_url": "https://github.com/",
     "theme_support_url": "https://github.com/"
@@ -10,23 +10,24 @@
   {
     "name": "Colors",
     "settings": [
-      { "type": "color", "id": "color_primary", "label": "Primary", "default": "#1D3F8C" },
-      { "type": "color", "id": "color_accent", "label": "Accent", "default": "#FFD200" },
-      { "type": "color", "id": "color_danger", "label": "Danger", "default": "#E30613" }
+      { "type": "color", "id": "color_primary", "label": "Primary (Blue)", "default": "#1D3F8C" },
+      { "type": "color", "id": "color_primary_dark", "label": "Primary Dark", "default": "#0D2A5C" },
+      { "type": "color", "id": "color_accent", "label": "Accent (Yellow)", "default": "#FFD200" },
+      { "type": "color", "id": "color_danger", "label": "Danger (Red)", "default": "#E30613" },
+      { "type": "color", "id": "color_green", "label": "WhatsApp Green", "default": "#1FA855" }
     ]
   },
   {
     "name": "Contact",
     "settings": [
-      { "type": "text", "id": "whatsapp_number", "label": "WhatsApp number (with country code, no +)", "default": "573000000000" }
-    ]
-  },
-  {
-    "name": "Social media",
-    "settings": [
-      { "type": "url", "id": "social_instagram", "label": "Instagram" },
-      { "type": "url", "id": "social_facebook", "label": "Facebook" },
-      { "type": "url", "id": "social_tiktok", "label": "TikTok" }
+      { "type": "text", "id": "whatsapp_number", "label": "WhatsApp (con c\u00f3digo pa\u00eds, sin +)", "default": "573218929443" },
+      { "type": "text", "id": "phone_display", "label": "Tel\u00e9fono visible", "default": "321 892 9443" },
+      { "type": "text", "id": "instagram_handle", "label": "Instagram handle", "default": "cacharroszz" },
+      { "type": "text", "id": "address", "label": "Direcci\u00f3n", "default": "Centro, Cra 3 #36-52" },
+      { "type": "text", "id": "city", "label": "Ciudad", "default": "Monter\u00eda, C\u00f3rdoba, Colombia" },
+      { "type": "text", "id": "hours_week", "label": "Horario semana", "default": "Lun a Vie \u00b7 8:30 AM - 6:30 PM" },
+      { "type": "text", "id": "hours_sat", "label": "Horario s\u00e1bados", "default": "S\u00e1bados \u00b7 8:30 AM - 6:00 PM" },
+      { "type": "text", "id": "maps_query", "label": "Google Maps query", "default": "Carrera 3 #36-52, Monteria, Cordoba, Colombia" }
     ]
   }
 ]

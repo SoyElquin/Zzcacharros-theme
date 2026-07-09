@@ -1,9 +1,1 @@
-{
-  "type": "header",
-  "name": "Header group",
-  "sections": {
-    "announcement": { "type": "announcement-bar" },
-    "header": { "type": "header" }
-  },
-  "order": ["announcement", "header"]
-}
+{ "type": "header", "name": "Header group", "sections": { "header": { "type": "header" } }, "order": ["header"] }

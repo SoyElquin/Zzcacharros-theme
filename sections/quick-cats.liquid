@@ -1,0 +1,50 @@
+{%- assign items = section.blocks -%}
+<section class="quick-cats">
+  <div class="container">
+    <div class="quick-cats__grid">
+      {% for b in items limit: 8 %}
+        <a class="quick-cat" href="{{ routes.root_url }}collections/{{ b.settings.handle }}">
+          <div class="quick-cat__img">
+            {% if b.settings.image %}
+              {{ b.settings.image | image_url: width: 160 | image_tag: alt: b.settings.label, width: 80, height: 80, loading: 'lazy' }}
+            {% else %}
+              <img src="{{ b.settings.fallback_asset | default: 'cat-jugueteria.jpg' | asset_url }}" alt="{{ b.settings.label }}" width="80" height="80" loading="lazy">
+            {% endif %}
+          </div>
+          <span class="quick-cat__label">{{ b.settings.label }}</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Quick categories",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "cat",
+      "name": "Categoría",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Etiqueta", "default": "Categoría" },
+        { "type": "text", "id": "handle", "label": "Collection handle", "default": "all" },
+        { "type": "image_picker", "id": "image", "label": "Imagen" },
+        { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename", "default": "cat-jugueteria.jpg" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Quick categories",
+    "blocks": [
+      { "type": "cat", "settings": { "label": "JUGUETERÍA", "handle": "jugueteria", "fallback_asset": "cat-jugueteria.jpg" } },
+      { "type": "cat", "settings": { "label": "ACCESORIOS", "handle": "accesorios", "fallback_asset": "cat-accesorios.jpg" } },
+      { "type": "cat", "settings": { "label": "BOLSOS", "handle": "bolsos-mochilas", "fallback_asset": "cat-bolsos.jpg" } },
+      { "type": "cat", "settings": { "label": "BELLEZA", "handle": "belleza", "fallback_asset": "cat-belleza.jpg" } },
+      { "type": "cat", "settings": { "label": "ELECTROBELLEZA", "handle": "electrobelleza", "fallback_asset": "cat-electrobelleza.jpg" } },
+      { "type": "cat", "settings": { "label": "HOGAR", "handle": "hogar-decoracion", "fallback_asset": "cat-hogar.jpg" } },
+      { "type": "cat", "settings": { "label": "TECNOLOGÍA", "handle": "tecnologia", "fallback_asset": "cat-tecnologia.jpg" } },
+      { "type": "cat", "settings": { "label": "PAPELERÍA", "handle": "papeleria-escolar", "fallback_asset": "cat-papeleria.jpg" } }
+    ]
+  }]
+}
+{% endschema %}

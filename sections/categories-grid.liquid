@@ -1,0 +1,71 @@
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow" style="color:var(--brand-red)">{{ section.settings.eyebrow }}</p>
+      <h2 class="section__title">{{ section.settings.heading }}</h2>
+      <p class="section__sub">{{ section.settings.sub }}</p>
+    </div>
+    <div class="cats">
+      {% for b in section.blocks %}
+        {%- assign col = collections[b.settings.handle] -%}
+        <a href="{{ routes.root_url }}collections/{{ b.settings.handle }}" class="cat">
+          <div class="cat__media">
+            {% if b.settings.image %}
+              {{ b.settings.image | image_url: width: 800 | image_tag: alt: b.settings.title, width: 800, height: 1000, loading: 'lazy' }}
+            {% elsif col.image %}
+              {{ col.image | image_url: width: 800 | image_tag: alt: b.settings.title, width: 800, height: 1000, loading: 'lazy' }}
+            {% else %}
+              <img src="{{ b.settings.fallback_asset | default: 'cat-jugueteria.jpg' | asset_url }}" alt="{{ b.settings.title }}" width="800" height="1000" loading="lazy">
+            {% endif %}
+            <div class="cat__overlay"></div>
+            {% if b.settings.featured %}<div class="cat__featured">⭐ Destacada</div>{% endif %}
+          </div>
+          <div class="cat__caption">
+            <h3>{{ b.settings.title }}</h3>
+            <p>{{ b.settings.subtitle }}</p>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Categories grid",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Todo lo que necesitas" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Explora por categoría" },
+    { "type": "textarea", "id": "sub", "label": "Subtítulo", "default": "11 líneas de productos con precios agresivos y stock listo para despacho." }
+  ],
+  "blocks": [
+    {
+      "type": "cat",
+      "name": "Categoría",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título" },
+        { "type": "text", "id": "subtitle", "label": "Subtítulo" },
+        { "type": "text", "id": "handle", "label": "Collection handle" },
+        { "type": "image_picker", "id": "image", "label": "Imagen (opcional)" },
+        { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename" },
+        { "type": "checkbox", "id": "featured", "label": "Destacada", "default": false }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Categories grid",
+    "blocks": [
+      { "type": "cat", "settings": { "title": "Juguetería", "subtitle": "Muñecas · carros · peluches · educativos", "handle": "jugueteria", "fallback_asset": "cat-jugueteria.jpg" } },
+      { "type": "cat", "settings": { "title": "Accesorios", "subtitle": "Aretes · moñas · diademas · hebillas", "handle": "accesorios", "fallback_asset": "cat-accesorios.jpg" } },
+      { "type": "cat", "settings": { "title": "Bolsos y Mochilas", "subtitle": "Dama · caballero · escolares · monederos", "handle": "bolsos-mochilas", "fallback_asset": "cat-bolsos.jpg" } },
+      { "type": "cat", "settings": { "title": "Belleza", "subtitle": "Maquillaje · esmaltes · press-on · brochas", "handle": "belleza", "fallback_asset": "cat-belleza.jpg", "featured": true } },
+      { "type": "cat", "settings": { "title": "Electrobelleza", "subtitle": "Planchas · secadores · rizadores", "handle": "electrobelleza", "fallback_asset": "cat-electrobelleza.jpg" } },
+      { "type": "cat", "settings": { "title": "Hogar y Decoración", "subtitle": "Cuadros · velas · organizadores · toallas", "handle": "hogar-decoracion", "fallback_asset": "cat-hogar.jpg" } },
+      { "type": "cat", "settings": { "title": "Tecnología", "subtitle": "Audífonos · cables · cargadores · parlantes", "handle": "tecnologia", "fallback_asset": "cat-tecnologia.jpg" } },
+      { "type": "cat", "settings": { "title": "Papelería y Escolar", "subtitle": "Cuadernos · carpetas · lápices · marcadores", "handle": "papeleria-escolar", "fallback_asset": "cat-papeleria.jpg" } },
+      { "type": "cat", "settings": { "title": "Perfumes y más", "subtitle": "Fragancias · body splash · cuidado", "handle": "perfumes", "fallback_asset": "cat-perfumes.jpg" } },
+      { "type": "cat", "settings": { "title": "Cacharrería", "subtitle": "Artículos varios para el día a día", "handle": "cacharreria", "fallback_asset": "cat-cacharros.jpg" } },
+      { "type": "cat", "settings": { "title": "Temporada", "subtitle": "Navidad · Halloween · fechas especiales", "handle": "temporada", "fallback_asset": "cat-temporada.jpg" } }
+    ]
+  }]
+}
+{% endschema %}

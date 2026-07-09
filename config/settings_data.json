@@ -1,17 +1,28 @@
 {
   "current": {
     "color_primary": "#1D3F8C",
+    "color_primary_dark": "#0D2A5C",
     "color_accent": "#FFD200",
     "color_danger": "#E30613",
-    "whatsapp_number": "573000000000",
+    "color_green": "#1FA855",
+    "whatsapp_number": "573218929443",
+    "phone_display": "321 892 9443",
+    "instagram_handle": "cacharroszz",
+    "address": "Centro, Cra 3 #36-52",
+    "city": "Monter\u00eda, C\u00f3rdoba, Colombia",
+    "hours_week": "Lun a Vie \u00b7 8:30 AM - 6:30 PM",
+    "hours_sat": "S\u00e1bados \u00b7 8:30 AM - 6:00 PM",
+    "maps_query": "Carrera 3 #36-52, Monteria, Cordoba, Colombia",
     "sections": {}
   },
   "presets": {
     "Default": {
       "color_primary": "#1D3F8C",
+      "color_primary_dark": "#0D2A5C",
       "color_accent": "#FFD200",
       "color_danger": "#E30613",
-      "whatsapp_number": "573000000000"
+      "color_green": "#1FA855",
+      "whatsapp_number": "573218929443"
     }
   }
 }

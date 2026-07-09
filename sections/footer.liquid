@@ -1,57 +1,93 @@
 <footer class="site-footer">
-  <div class="container">
-    <div class="site-footer__grid">
-      <div>
-        <img src="{{ 'logo-zz.png' | asset_url }}" alt="{{ shop.name }}" width="160" style="filter:brightness(0) invert(1);margin-bottom:12px">
-        <p style="opacity:.85;font-size:.9rem">{{ section.settings.about_text }}</p>
+  <div class="trustbar">
+    <div class="container">
+      <div class="trustbar__grid">
+        <div class="trustbar__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <div class="trustbar__title">Envíos rápidos</div>
+          <div class="trustbar__text">A toda Colombia</div>
+        </div>
+        <div class="trustbar__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <div class="trustbar__title">Múltiples pagos</div>
+          <div class="trustbar__text">Nequi · Daviplata · Transferencia</div>
+        </div>
+        <div class="trustbar__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div class="trustbar__title">Compra segura</div>
+          <div class="trustbar__text">Garantía en cada pedido</div>
+        </div>
+        <div class="trustbar__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <div class="trustbar__title">Atención directa</div>
+          <div class="trustbar__text">WhatsApp · Lun-Dom</div>
+        </div>
       </div>
-      {% for block in section.blocks %}
-        {% if block.type == 'link_list' %}
-          <div {{ block.shopify_attributes }}>
-            <h4>{{ block.settings.heading }}</h4>
-            <ul>
-              {% if block.settings.menu != blank %}
-                {% for link in linklists[block.settings.menu].links %}
-                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-                {% endfor %}
-              {% endif %}
-            </ul>
-          </div>
-        {% endif %}
-      {% endfor %}
     </div>
-    <div class="site-footer__legal">
-      © {{ 'now' | date: '%Y' }} {{ shop.name }}. Todos los derechos reservados.
+  </div>
+
+  <div class="container site-footer__main">
+    <div>
+      <div class="footer-brand">
+        <img src="{{ 'logo-zz.png' | asset_url }}" alt="Zzcacharros" width="56" height="56">
+        <div>
+          <div class="footer-brand__name">Zzcacharros</div>
+          <div class="footer-brand__tag">Comercial de Cacharros ZZ</div>
+        </div>
+      </div>
+      <p style="margin-top:12px">Belleza, electrobelleza, cacharros, bolsos, juguetería, papelería y hogar. Al por mayor y al detal, con precios de locura.</p>
+      <div class="site-footer__row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>{{ settings.address }}<br>{{ settings.city }}</span>
+      </div>
+      <div class="site-footer__row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>{{ settings.hours_week }}<br>{{ settings.hours_sat }}</span>
+      </div>
+    </div>
+    <div>
+      <h4>Compra</h4>
+      <ul>
+        <li><a href="{{ routes.all_products_collection_url }}">Ver todo el catálogo</a></li>
+        <li><a href="{{ routes.root_url }}collections/belleza">Belleza</a></li>
+        <li><a href="{{ routes.root_url }}collections/electrobelleza">Electrobelleza</a></li>
+        <li><a href="{{ routes.root_url }}collections/cacharros">Cacharros y cocina</a></li>
+        <li><a href="{{ routes.root_url }}collections/jugueteria">Juguetería</a></li>
+        <li><a href="{{ routes.root_url }}pages/mayoristas">Zona Mayoristas</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Ayuda</h4>
+      <ul>
+        <li><a href="{{ routes.root_url }}pages/como-comprar">¿Cómo comprar?</a></li>
+        <li><a href="{{ routes.root_url }}pages/envios">Envíos y entregas</a></li>
+        <li><a href="{{ routes.root_url }}pages/devoluciones">Devoluciones</a></li>
+        <li><a href="{{ routes.root_url }}pages/faq">Preguntas frecuentes</a></li>
+        <li><a href="{{ routes.root_url }}pages/terminos">Términos y condiciones</a></li>
+        <li><a href="{{ routes.root_url }}pages/contacto">Contáctanos</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Síguenos</h4>
+      <ul>
+        <li><a href="https://wa.me/{{ settings.whatsapp_number }}" target="_blank" rel="noopener">💬 {{ settings.phone_display }}</a></li>
+        <li><a href="https://instagram.com/{{ settings.instagram_handle }}" target="_blank" rel="noopener">📸 @{{ settings.instagram_handle }}</a></li>
+        <li><a href="https://facebook.com/{{ settings.instagram_handle }}" target="_blank" rel="noopener">📘 Zzcacharros</a></li>
+      </ul>
+      <div class="footer-coupons">
+        <b>Cupones activos</b>
+        #ZZWEB · #MAYORISTA · #REDES
+      </div>
+    </div>
+  </div>
+
+  <div class="site-footer__legal">
+    <div class="container site-footer__legal-inner">
+      <div>© {{ 'now' | date: '%Y' }} Comercial de Cacharros ZZ · Todos los derechos reservados</div>
+      <div>Venta al por mayor y al detal</div>
     </div>
   </div>
 </footer>
-
 {% schema %}
-{
-  "name": "Footer",
-  "settings": [
-    { "type": "textarea", "id": "about_text", "label": "About text", "default": "Tu tienda mayorista y minorista de cacharros, hogar, tecnología y más." }
-  ],
-  "blocks": [
-    {
-      "type": "link_list",
-      "name": "Menu column",
-      "settings": [
-        { "type": "text", "id": "heading", "label": "Heading", "default": "Ayuda" },
-        { "type": "link_list", "id": "menu", "label": "Menu" }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Footer",
-      "blocks": [
-        { "type": "link_list", "settings": { "heading": "Ayuda" } },
-        { "type": "link_list", "settings": { "heading": "Tienda" } },
-        { "type": "link_list", "settings": { "heading": "Contacto" } }
-      ]
-    }
-  ],
-  "enabled_on": { "groups": ["footer"] }
-}
+{ "name": "Footer", "settings": [], "enabled_on": { "groups": ["footer"] } }
 {% endschema %}

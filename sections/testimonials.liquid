@@ -1,0 +1,46 @@
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow" style="color:var(--brand-red)">Lo dicen nuestros clientes</p>
+      <h2 class="section__title">Testimonios reales</h2>
+    </div>
+    <div class="testimonials">
+      {% for b in section.blocks %}
+        <div class="testimonial">
+          <div class="stars">
+            {% for i in (1..5) %}<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>{% endfor %}
+          </div>
+          <p class="testimonial__text">"{{ b.settings.text }}"</p>
+          <div class="testimonial__author">
+            <div class="testimonial__name">{{ b.settings.name }}</div>
+            <div class="testimonial__role">{{ b.settings.role }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Testimonials",
+  "blocks": [
+    {
+      "type": "t",
+      "name": "Testimonio",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Nombre" },
+        { "type": "text", "id": "role", "label": "Rol" },
+        { "type": "textarea", "id": "text", "label": "Texto" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Testimonials",
+    "blocks": [
+      { "type": "t", "settings": { "name": "Marcela P.", "role": "Tendera · Cereté", "text": "Surto mi tienda cada 15 días con Zz. Los precios son mejores que en el centro y ya me envían directo." } },
+      { "type": "t", "settings": { "name": "Julián R.", "role": "Miscelánea · Sahagún", "text": "Los cacharros y la papelería tienen muy buena rotación. Recomendado 100% para revendedores." } },
+      { "type": "t", "settings": { "name": "Diana M.", "role": "Ama de casa · Montería", "text": "Encontré todo lo del hogar en un solo lugar y con envío al día siguiente. Buenísimo." } }
+    ]
+  }]
+}
+{% endschema %}

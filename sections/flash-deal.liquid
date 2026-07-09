@@ -1,0 +1,35 @@
+<section class="flash">
+  <div class="flash__inner">
+    <div class="flash__head">
+      <div class="flash__icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+      </div>
+      <div>
+        <div class="flash__eyebrow">{{ section.settings.eyebrow }}</div>
+        <div class="flash__title">{{ section.settings.title }}</div>
+      </div>
+    </div>
+    <div class="flash__mid">
+      <p class="flash__text">{{ section.settings.text }}</p>
+      <div class="flash__coupon">
+        <div class="flash__coupon-lbl">Cupón</div>
+        <div class="flash__coupon-code">{{ section.settings.coupon }}</div>
+      </div>
+    </div>
+    <a href="https://www.google.com/maps?q={{ settings.maps_query | url_encode }}" target="_blank" rel="noopener" class="btn btn--yellow">
+      📍 Cómo llegar
+    </a>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Flash deal",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Promo en tienda" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Descuento especial" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Menciona este código al llegar al almacén y recibe un descuento especial." },
+    { "type": "text", "id": "coupon", "label": "Cupón", "default": "#REDES" }
+  ],
+  "presets": [{ "name": "Flash deal" }]
+}
+{% endschema %}

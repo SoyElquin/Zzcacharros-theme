@@ -1,30 +1,15 @@
 {
   "sections": {
-    "hero": {
-      "type": "image-banner",
-      "settings": {
-        "eyebrow": "Mayoristas y minoristas",
-        "heading": "Zzcacharros — grandes ofertas, cada día",
-        "subheading": "Miles de productos para tu hogar, negocio y familia.",
-        "button_label": "Ver catálogo",
-        "button_url": "shopify://collections/all"
-      }
-    },
-    "cats": {
-      "type": "collection-list",
-      "settings": { "heading": "Categorías" }
-    },
-    "featured": {
-      "type": "featured-collection",
-      "settings": { "heading": "Destacados", "limit": 8 }
-    },
-    "about": {
-      "type": "rich-text",
-      "settings": {
-        "heading": "Somos Zzcacharros",
-        "text": "<p>Tu aliado en cacharros, hogar, papelería, perfumería, tecnología y más. Compra al por mayor o al detal con envío nacional.</p>"
-      }
-    }
+    "hero":       { "type": "hero-zz" },
+    "quick":      { "type": "quick-cats" },
+    "flash":      { "type": "flash-deal" },
+    "cats":       { "type": "categories-grid" },
+    "featured":   { "type": "featured-products" },
+    "wholesale":  { "type": "wholesale-banner" },
+    "how":        { "type": "how-to-buy" },
+    "testi":      { "type": "testimonials" },
+    "news":       { "type": "newsletter-zz" },
+    "visit":      { "type": "visit-us" }
   },
-  "order": ["hero", "cats", "featured", "about"]
+  "order": ["hero","quick","flash","cats","featured","wholesale","how","testi","news","visit"]
 }

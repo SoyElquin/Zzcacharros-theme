@@ -1,0 +1,39 @@
+{%- assign col = collections[section.settings.collection] -%}
+<section class="section featured">
+  <div class="container">
+    <div class="section__head-left">
+      <div>
+        <p class="eyebrow" style="color:var(--brand-red)">{{ section.settings.eyebrow }}</p>
+        <h2 class="section__title">{{ section.settings.heading }}</h2>
+        <p style="color:var(--muted);margin-top:8px">{{ section.settings.sub }}</p>
+      </div>
+      <a class="section__link" href="{{ routes.all_products_collection_url }}">Ver todo →</a>
+    </div>
+    {% if col.products.size > 0 %}
+      <div class="products">
+        {% for p in col.products limit: section.settings.limit %}
+          {% render 'product-card', product: p %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-card">
+        <svg class="empty-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <h3>Aún no hay productos publicados</h3>
+        <p>Estamos cargando el catálogo. Vuelve pronto o escríbenos por WhatsApp para consultar disponibilidad.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Featured products",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Los favoritos de la semana" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Los más pedidos" },
+    { "type": "textarea", "id": "sub", "label": "Subtítulo", "default": "Productos con más rotación en nuestro almacén." },
+    { "type": "collection", "id": "collection", "label": "Colección" },
+    { "type": "range", "id": "limit", "label": "Productos", "min": 4, "max": 16, "step": 4, "default": 8 }
+  ],
+  "presets": [{ "name": "Featured products" }]
+}
+{% endschema %}

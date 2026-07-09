@@ -1,0 +1,42 @@
+<section class="section">
+  <div class="container">
+    <div class="visit">
+      <div class="visit__map">
+        <iframe title="Ubicación Zzcacharros" src="https://www.google.com/maps?q={{ settings.maps_query | url_encode }}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="visit__card">
+        <p class="eyebrow" style="color:var(--brand-yellow)">Visítanos en Montería</p>
+        <h2>Estamos <span class="yellow">esperándote</span></h2>
+        <div class="visit__grid">
+          <div class="visit__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="visit__item-title">Punto físico</div>
+            <div class="visit__item-text">{{ settings.address }}<br>{{ settings.city }}</div>
+          </div>
+          <div class="visit__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div class="visit__item-title">Horarios</div>
+            <div class="visit__item-text">{{ settings.hours_week }}<br>{{ settings.hours_sat }}</div>
+          </div>
+          <div class="visit__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <div class="visit__item-title">WhatsApp</div>
+            <div class="visit__item-text">{{ settings.phone_display }}</div>
+          </div>
+          <div class="visit__item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="visit__item-title">Garantía</div>
+            <div class="visit__item-text">Producto verificado y respaldado</div>
+          </div>
+        </div>
+        <div class="visit__ctas">
+          <a href="https://wa.me/{{ settings.whatsapp_number }}?text=Hola%20Zzcacharros" target="_blank" rel="noopener" class="btn btn--green btn--lg">💬 Escríbenos ya</a>
+          <a href="{{ routes.root_url }}pages/contacto" class="btn btn--outline-white btn--lg" style="color:#fff">Ver contacto</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Visit us", "settings": [], "presets": [{ "name": "Visit us" }] }
+{% endschema %}

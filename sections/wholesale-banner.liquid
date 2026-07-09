@@ -1,0 +1,28 @@
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="wholesale">
+      <div class="wholesale__body">
+        <span class="wholesale__pill">🏬 Zona Mayoristas</span>
+        <h2 class="wholesale__title">¿Tienes un negocio?<br><span class="yellow">Compra al por mayor</span></h2>
+        <p class="wholesale__desc">Regístrate como tenderos, papelería, miscelánea o revendedor y accede a precios especiales, márgenes recomendados y prioridad de despacho.</p>
+        <ul class="wholesale__list">
+          <li>Precios mayoristas exclusivos</li>
+          <li>Margen sugerido al detal</li>
+          <li>Descuento por volumen</li>
+          <li>Envío prioritario a Córdoba</li>
+        </ul>
+        <div class="wholesale__ctas">
+          <a href="{{ routes.root_url }}pages/mayoristas" class="btn btn--yellow btn--lg">Registrarme como mayorista</a>
+          <a href="https://wa.me/{{ settings.whatsapp_number }}?text=Hola%20Zzcacharros,%20soy%20mayorista" target="_blank" rel="noopener" class="btn btn--outline-white btn--lg">💬 Cotizar</a>
+        </div>
+      </div>
+      <div class="wholesale__media">
+        <img src="{{ 'cat-cacharros.jpg' | asset_url }}" alt="Mayoristas" loading="lazy">
+        <div class="wholesale__stamp">+60% margen</div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Wholesale banner", "settings": [], "presets": [{ "name": "Wholesale banner" }] }
+{% endschema %}

@@ -1,0 +1,24 @@
+<section class="newsletter">
+  <div class="newsletter__inner">
+    <div>
+      <span class="newsletter__pill">🎁 Cupón de bienvenida</span>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.text }}</p>
+    </div>
+    {% form 'customer', class: 'newsletter__form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input type="email" name="contact[email]" placeholder="Email o WhatsApp" required>
+      <button type="submit" class="btn btn--primary btn--lg">Quiero mi cupón</button>
+    {% endform %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Newsletter Zz",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "5% OFF en tu primer pedido" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Déjanos tu email o WhatsApp y recibe el cupón #ZZWEB al instante, junto con las ofertas de la semana." }
+  ],
+  "presets": [{ "name": "Newsletter Zz" }]
+}
+{% endschema %}

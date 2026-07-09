@@ -1,77 +1,107 @@
-<header class="site-header">
-  {% if section.settings.topbar_text != blank %}
-    <div class="site-header__topbar">{{ section.settings.topbar_text }}</div>
-  {% endif %}
-  <div class="container site-header__inner">
-    <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }}">
-      {% if section.settings.logo %}
-        {{ section.settings.logo | image_url: width: 200 | image_tag: alt: shop.name, loading: 'eager', width: 200 }}
-      {% else %}
-        <img src="{{ 'logo-zz.png' | asset_url }}" alt="{{ shop.name }}" width="200">
-      {% endif %}
-    </a>
-    <form action="{{ routes.search_url }}" method="get" role="search" class="site-header__search">
-      <input type="search" name="q" placeholder="Buscar productos..." aria-label="Search">
-      <button type="submit" class="btn btn--primary" style="padding:6px 14px">Buscar</button>
-    </form>
-    <div class="site-header__actions">
-      {% if shop.customer_accounts_enabled %}
-        {% if customer %}
-          <a href="{{ routes.account_url }}">{{ customer.first_name | default: 'Cuenta' }}</a>
-        {% else %}
-          <a href="{{ routes.account_login_url }}">Ingresar</a>
-        {% endif %}
-      {% endif %}
-      <a href="{{ routes.cart_url }}" aria-label="Cart">
-        🛒 <span class="cart-count">{{ cart.item_count }}</span>
-      </a>
+{%- assign strips = "🚚 Envíos a toda Colombia|💥 Precios de locura todos los días|📦 Al por mayor y al detal|💬 Atención directa por WhatsApp|🎁 Cupón #ZZWEB de bienvenida" | split: "|" -%}
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {% for i in (1..3) %}{% for t in strips %}<span>{{ t }}</span>{% endfor %}{% endfor %}
+  </div>
+</div>
+
+<div class="utilbar">
+  <div class="container utilbar__inner">
+    <div class="utilbar__left">
+      <span>📍 <span class="yellow"></span> {{ settings.city | default: 'Montería, Córdoba' }}</span>
+      <span>📞 {{ settings.phone_display }}</span>
+      <span>{{ settings.hours_week }}</span>
+    </div>
+    <div class="utilbar__right">
+      <a href="{{ routes.root_url }}pages/como-comprar">¿Cómo comprar?</a>
+      <a href="{{ routes.root_url }}pages/mayoristas">Soy mayorista</a>
+      <a href="{{ routes.root_url }}pages/contacto">Contacto</a>
     </div>
   </div>
-  {% if section.blocks.size > 0 %}
-    <nav class="site-nav" aria-label="Primary">
-      <div class="container">
-        <ul>
-          {% for block in section.blocks %}
-            {% if block.type == 'link' %}
-              <li {{ block.shopify_attributes }}>
-                <a href="{{ block.settings.url }}">{{ block.settings.label }}</a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
+</div>
+
+<header class="site-header">
+  <div class="container">
+    <div class="site-header__inner">
+      <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }}">
+        {% if section.settings.logo %}
+          {{ section.settings.logo | image_url: width: 96 | image_tag: alt: shop.name, loading: 'eager', width: 48, height: 48 }}
+        {% else %}
+          <img src="{{ 'logo-zz.png' | asset_url }}" alt="{{ shop.name }}" width="48" height="48">
+        {% endif %}
+        <div class="site-header__brand">
+          <div class="site-header__brand-name">Zzcacharros</div>
+          <div class="site-header__brand-tag">Calidad · Precio · Variedad</div>
+        </div>
+      </a>
+
+      <form action="{{ routes.search_url }}" method="get" role="search" class="site-header__search">
+        <div class="site-header__search-wrap">
+          <svg class="site-header__search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" name="q" placeholder="Buscar productos, referencias, categorías..." aria-label="Buscar">
+          <button type="submit" class="site-header__search-btn">Buscar</button>
+        </div>
+      </form>
+
+      <div class="site-header__actions">
+        <a href="{{ routes.search_url }}" class="icon-btn hide-lg" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </a>
+        <a href="{{ routes.cart_url }}" class="icon-btn" aria-label="Carrito">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+          {% if cart.item_count > 0 %}<span class="cart-count">{{ cart.item_count }}</span>{% endif %}
+        </a>
+        <button type="button" class="icon-btn hide-lg" aria-label="Menú" onclick="document.getElementById('MobileMenu').classList.add('open')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="site-nav" aria-label="Principal">
+      <div class="site-nav__inner">
+        <a href="{{ routes.root_url }}">Inicio</a>
+        <a href="{{ routes.all_products_collection_url }}">Catálogo</a>
+        <a href="{{ routes.root_url }}collections/belleza">Belleza</a>
+        <a href="{{ routes.root_url }}collections/electrobelleza">Electrobelleza</a>
+        <a href="{{ routes.root_url }}collections/cacharros">Cacharros</a>
+        <a href="{{ routes.root_url }}collections/jugueteria">Juguetería</a>
+        <a href="{{ routes.root_url }}pages/mayoristas">Mayoristas</a>
+        <span class="nav-coupon">✨ Cupón #ZZWEB · 10% OFF</span>
       </div>
     </nav>
-  {% endif %}
+  </div>
 </header>
+
+<div class="mobile-menu" id="MobileMenu">
+  <div class="mobile-menu__backdrop" onclick="document.getElementById('MobileMenu').classList.remove('open')"></div>
+  <div class="mobile-menu__panel">
+    <div class="mobile-menu__head">
+      <strong>Menú</strong>
+      <button class="icon-btn" style="color:#fff" onclick="document.getElementById('MobileMenu').classList.remove('open')" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <ul class="mobile-menu__list">
+      <li><a href="{{ routes.root_url }}">Inicio</a></li>
+      <li><a href="{{ routes.all_products_collection_url }}">Catálogo</a></li>
+      <li><a href="{{ routes.root_url }}collections/belleza">Belleza</a></li>
+      <li><a href="{{ routes.root_url }}collections/electrobelleza">Electrobelleza</a></li>
+      <li><a href="{{ routes.root_url }}collections/cacharros">Cacharros</a></li>
+      <li><a href="{{ routes.root_url }}collections/jugueteria">Juguetería</a></li>
+      <li><a href="{{ routes.root_url }}collections/hogar-decoracion">Hogar</a></li>
+      <li><a href="{{ routes.root_url }}collections/papeleria-escolar">Papelería</a></li>
+      <li><a href="{{ routes.root_url }}pages/mayoristas">Mayoristas</a></li>
+      <li><a href="{{ routes.root_url }}pages/como-comprar">¿Cómo comprar?</a></li>
+      <li><a href="{{ routes.root_url }}pages/contacto">Contacto</a></li>
+    </ul>
+  </div>
+</div>
 
 {% schema %}
 {
   "name": "Header",
   "settings": [
-    { "type": "image_picker", "id": "logo", "label": "Logo" },
-    { "type": "text", "id": "topbar_text", "label": "Top bar text", "default": "Envíos a toda Colombia · Contra entrega disponible" }
-  ],
-  "blocks": [
-    {
-      "type": "link",
-      "name": "Menu link",
-      "settings": [
-        { "type": "text", "id": "label", "label": "Label", "default": "Inicio" },
-        { "type": "url", "id": "url", "label": "URL" }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Header",
-      "blocks": [
-        { "type": "link", "settings": { "label": "Inicio", "url": "/" } },
-        { "type": "link", "settings": { "label": "Catálogo", "url": "/collections/all" } },
-        { "type": "link", "settings": { "label": "Mayoristas", "url": "/pages/mayoristas" } },
-        { "type": "link", "settings": { "label": "Cómo comprar", "url": "/pages/como-comprar" } },
-        { "type": "link", "settings": { "label": "Contacto", "url": "/pages/contacto" } }
-      ]
-    }
+    { "type": "image_picker", "id": "logo", "label": "Logo" }
   ],
   "enabled_on": { "groups": ["header"] }
 }
