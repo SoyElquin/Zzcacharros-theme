@@ -1,0 +1,18 @@
+<section class="container section">
+  <h1>Colecciones</h1>
+  <div class="grid grid--cats mt-4">
+    {% for col in collections %}
+      {% unless col.handle == 'frontpage' or col.all_products_count == 0 %}
+        <a class="cat-card" href="{{ col.url }}">
+          {% if col.image %}
+            {{ col.image | image_url: width: 400 | image_tag: alt: col.title, loading: 'lazy', width: 400, height: 400 }}
+          {% endif %}
+          <span class="cat-card__label">{{ col.title }}</span>
+        </a>
+      {% endunless %}
+    {% endfor %}
+  </div>
+</section>
+{% schema %}
+{ "name": "Collections list", "settings": [], "enabled_on": { "templates": ["list-collections"] } }
+{% endschema %}

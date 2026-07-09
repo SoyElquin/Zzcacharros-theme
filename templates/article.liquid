@@ -1,0 +1,6 @@
+<article class="container section" style="max-width:820px">
+  <h1>{{ article.title }}</h1>
+  <p style="color:var(--muted);font-size:.9rem">{{ article.published_at | date: '%d/%m/%Y' }} — {{ article.author }}</p>
+  {% if article.image %}<img src="{{ article.image | image_url: width: 1400 }}" alt="{{ article.title }}" style="border-radius:12px;margin:16px 0">{% endif %}
+  <div class="product__desc">{{ article.content }}</div>
+</article>

@@ -1,0 +1,8 @@
+<section class="container section">
+  <h1>Direcciones</h1>
+  {% for address in customer.addresses %}
+    <div style="border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:12px">
+      {{ address | format_address }}
+    </div>
+  {% endfor %}
+</section>

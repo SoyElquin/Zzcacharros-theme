@@ -1,0 +1,37 @@
+<section class="container cart">
+  <h1>Carrito</h1>
+  {% if cart.item_count > 0 %}
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      {% for item in cart.items %}
+        <div class="cart__item">
+          <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title }}" width="80" height="80">
+          <div>
+            <a href="{{ item.url }}"><strong>{{ item.product.title }}</strong></a>
+            {% unless item.variant.title contains 'Default' %}<div style="font-size:.85rem;color:var(--muted)">{{ item.variant.title }}</div>{% endunless %}
+            <div style="margin-top:6px">
+              <label>Cantidad
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width:60px;padding:6px;border:1px solid var(--border);border-radius:6px">
+              </label>
+              <a href="{{ item.url_to_remove }}" style="margin-left:8px;color:var(--brand-red)">Quitar</a>
+            </div>
+          </div>
+          <div><strong>{{ item.final_line_price | money }}</strong></div>
+        </div>
+      {% endfor %}
+      <div class="cart__totals">
+        <span>Subtotal</span>
+        <span>{{ cart.total_price | money }}</span>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button type="submit" name="update" class="btn btn--ghost">Actualizar</button>
+        <button type="submit" name="checkout" class="btn btn--primary">Finalizar compra</button>
+      </div>
+    </form>
+  {% else %}
+    <p>Tu carrito está vacío.</p>
+    <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">Ver productos</a>
+  {% endif %}
+</section>
+{% schema %}
+{ "name": "Cart", "settings": [], "enabled_on": { "templates": ["cart"] } }
+{% endschema %}

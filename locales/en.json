@@ -1,0 +1,13 @@
+{
+  "general": {
+    "search": { "placeholder": "Search products...", "submit": "Search", "title": "Search" },
+    "account": { "title": "Account", "login": "Log in" },
+    "footer": { "rights": "All rights reserved." },
+    "password_page": { "opening_soon": "Opening soon", "password_label": "Password", "submit": "Enter" },
+    "empty": { "no_products": "No products yet." }
+  },
+  "products": { "variants": "Variant" },
+  "collections": { "title": "Collections" },
+  "cart": { "title": "Cart", "empty": "Your cart is empty." },
+  "accessibility": { "skip_to_text": "Skip to content" }
+}

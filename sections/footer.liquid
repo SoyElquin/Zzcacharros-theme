@@ -1,0 +1,57 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <img src="{{ 'logo-zz.png' | asset_url }}" alt="{{ shop.name }}" width="160" style="filter:brightness(0) invert(1);margin-bottom:12px">
+        <p style="opacity:.85;font-size:.9rem">{{ section.settings.about_text }}</p>
+      </div>
+      {% for block in section.blocks %}
+        {% if block.type == 'link_list' %}
+          <div {{ block.shopify_attributes }}>
+            <h4>{{ block.settings.heading }}</h4>
+            <ul>
+              {% if block.settings.menu != blank %}
+                {% for link in linklists[block.settings.menu].links %}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="site-footer__legal">
+      © {{ 'now' | date: '%Y' }} {{ shop.name }}. Todos los derechos reservados.
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "textarea", "id": "about_text", "label": "About text", "default": "Tu tienda mayorista y minorista de cacharros, hogar, tecnología y más." }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Ayuda" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        { "type": "link_list", "settings": { "heading": "Ayuda" } },
+        { "type": "link_list", "settings": { "heading": "Tienda" } },
+        { "type": "link_list", "settings": { "heading": "Contacto" } }
+      ]
+    }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

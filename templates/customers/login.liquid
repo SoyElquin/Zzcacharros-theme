@@ -1,0 +1,10 @@
+<section class="container section" style="max-width:420px">
+  <h1>Iniciar sesión</h1>
+  {% form 'customer_login' %}
+    {{ form.errors | default_errors }}
+    <div class="field"><label for="email">Email</label><input type="email" name="customer[email]" id="email" required></div>
+    <div class="field"><label for="password">Contraseña</label><input type="password" name="customer[password]" id="password" required></div>
+    <button type="submit" class="btn btn--primary btn--block">Ingresar</button>
+  {% endform %}
+  <p class="mt-4"><a href="{{ routes.account_register_url }}">Crear cuenta</a> · <a href="{{ routes.account_recover_url }}">Olvidé mi contraseña</a></p>
+</section>

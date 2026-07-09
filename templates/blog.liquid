@@ -1,0 +1,15 @@
+<section class="container section">
+  <h1>{{ blog.title }}</h1>
+  <div class="grid grid--products mt-4">
+    {% for article in blog.articles %}
+      <a class="product-card" href="{{ article.url }}">
+        <div class="product-card__media">{% if article.image %}{{ article.image | image_url: width: 500 | image_tag: alt: article.title, loading: 'lazy', width: 500 }}{% endif %}</div>
+        <div class="product-card__body">
+          <span class="product-card__title">{{ article.title }}</span>
+          <span style="font-size:.8rem;color:var(--muted)">{{ article.published_at | date: '%d/%m/%Y' }}</span>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+{% paginate blog.articles by 12 %}{% endpaginate %}

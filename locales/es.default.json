@@ -1,0 +1,13 @@
+{
+  "general": {
+    "search": { "placeholder": "Buscar productos...", "submit": "Buscar", "title": "Búsqueda" },
+    "account": { "title": "Cuenta", "login": "Ingresar" },
+    "footer": { "rights": "Todos los derechos reservados." },
+    "password_page": { "opening_soon": "Muy pronto abrimos", "password_label": "Contraseña", "submit": "Entrar" },
+    "empty": { "no_products": "Aún no hay productos." }
+  },
+  "products": { "variants": "Variante" },
+  "collections": { "title": "Colecciones" },
+  "cart": { "title": "Carrito", "empty": "Tu carrito está vacío." },
+  "accessibility": { "skip_to_text": "Saltar al contenido" }
+}

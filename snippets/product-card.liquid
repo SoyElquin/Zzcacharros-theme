@@ -1,0 +1,18 @@
+{%- comment -%} Usage: {% render 'product-card', product: product %} {%- endcomment -%}
+<a href="{{ product.url }}" class="product-card">
+  <div class="product-card__media">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 500 | image_tag: alt: product.title, loading: 'lazy', width: 500, height: 500 }}
+    {% else %}
+      <img src="{{ 'logo-zz.png' | asset_url }}" alt="{{ product.title }}" loading="lazy">
+    {% endif %}
+  </div>
+  <div class="product-card__body">
+    {% if product.compare_at_price > product.price %}<span class="badge">Oferta</span>{% endif %}
+    <span class="product-card__title">{{ product.title }}</span>
+    <span class="product-card__price">
+      {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}
+      {{ product.price | money }}
+    </span>
+  </div>
+</a>

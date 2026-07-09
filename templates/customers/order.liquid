@@ -1,0 +1,12 @@
+<section class="container section">
+  <h1>Pedido {{ order.name }}</h1>
+  <p>Fecha: {{ order.created_at | date: '%d/%m/%Y' }} · Estado: {{ order.financial_status_label }}</p>
+  {% for line in order.line_items %}
+    <div class="cart__item">
+      <img src="{{ line.image | image_url: width: 160 }}" alt="{{ line.title }}" width="80" height="80">
+      <div><strong>{{ line.title }}</strong><br>{{ line.quantity }} × {{ line.price | money }}</div>
+      <div>{{ line.final_line_price | money }}</div>
+    </div>
+  {% endfor %}
+  <div class="cart__totals"><span>Total</span><span>{{ order.total_price | money }}</span></div>
+</section>

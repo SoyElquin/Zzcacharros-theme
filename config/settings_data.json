@@ -1,0 +1,17 @@
+{
+  "current": {
+    "color_primary": "#1D3F8C",
+    "color_accent": "#FFD200",
+    "color_danger": "#E30613",
+    "whatsapp_number": "573000000000",
+    "sections": {}
+  },
+  "presets": {
+    "Default": {
+      "color_primary": "#1D3F8C",
+      "color_accent": "#FFD200",
+      "color_danger": "#E30613",
+      "whatsapp_number": "573000000000"
+    }
+  }
+}

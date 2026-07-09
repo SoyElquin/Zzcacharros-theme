@@ -1,0 +1,78 @@
+<header class="site-header">
+  {% if section.settings.topbar_text != blank %}
+    <div class="site-header__topbar">{{ section.settings.topbar_text }}</div>
+  {% endif %}
+  <div class="container site-header__inner">
+    <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }}">
+      {% if section.settings.logo %}
+        {{ section.settings.logo | image_url: width: 200 | image_tag: alt: shop.name, loading: 'eager', width: 200 }}
+      {% else %}
+        <img src="{{ 'logo-zz.png' | asset_url }}" alt="{{ shop.name }}" width="200">
+      {% endif %}
+    </a>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="site-header__search">
+      <input type="search" name="q" placeholder="Buscar productos..." aria-label="Search">
+      <button type="submit" class="btn btn--primary" style="padding:6px 14px">Buscar</button>
+    </form>
+    <div class="site-header__actions">
+      {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+          <a href="{{ routes.account_url }}">{{ customer.first_name | default: 'Cuenta' }}</a>
+        {% else %}
+          <a href="{{ routes.account_login_url }}">Ingresar</a>
+        {% endif %}
+      {% endif %}
+      <a href="{{ routes.cart_url }}" aria-label="Cart">
+        🛒 <span class="cart-count">{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+  {% if section.blocks.size > 0 %}
+    <nav class="site-nav" aria-label="Primary">
+      <div class="container">
+        <ul>
+          {% for block in section.blocks %}
+            {% if block.type == 'link' %}
+              <li {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.url }}">{{ block.settings.label }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+  {% endif %}
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "text", "id": "topbar_text", "label": "Top bar text", "default": "Envíos a toda Colombia · Contra entrega disponible" }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Menu link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Inicio" },
+        { "type": "url", "id": "url", "label": "URL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header",
+      "blocks": [
+        { "type": "link", "settings": { "label": "Inicio", "url": "/" } },
+        { "type": "link", "settings": { "label": "Catálogo", "url": "/collections/all" } },
+        { "type": "link", "settings": { "label": "Mayoristas", "url": "/pages/mayoristas" } },
+        { "type": "link", "settings": { "label": "Cómo comprar", "url": "/pages/como-comprar" } },
+        { "type": "link", "settings": { "label": "Contacto", "url": "/pages/contacto" } }
+      ]
+    }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

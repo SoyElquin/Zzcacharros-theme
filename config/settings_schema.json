@@ -1,0 +1,32 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Zzcacharros",
+    "theme_version": "1.0.0",
+    "theme_author": "Zzcacharros",
+    "theme_documentation_url": "https://github.com/",
+    "theme_support_url": "https://github.com/"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "color_primary", "label": "Primary", "default": "#1D3F8C" },
+      { "type": "color", "id": "color_accent", "label": "Accent", "default": "#FFD200" },
+      { "type": "color", "id": "color_danger", "label": "Danger", "default": "#E30613" }
+    ]
+  },
+  {
+    "name": "Contact",
+    "settings": [
+      { "type": "text", "id": "whatsapp_number", "label": "WhatsApp number (with country code, no +)", "default": "573000000000" }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      { "type": "url", "id": "social_instagram", "label": "Instagram" },
+      { "type": "url", "id": "social_facebook", "label": "Facebook" },
+      { "type": "url", "id": "social_tiktok", "label": "TikTok" }
+    ]
+  }
+]
