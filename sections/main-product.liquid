@@ -1,13 +1,26 @@
 <section class="container">
   <div class="product">
-    <div class="product__media">
-      {% if product.featured_image %}
-        {{ product.featured_image | image_url: width: 1200 | image_tag: alt: product.title, loading: 'eager', width: 1200 }}
-      {% endif %}
+    <div class="product__gallery">
+      <div class="product__main-img">
+        {% if product.featured_image %}
+          <img id="ProductMainImg"
+               src="{{ product.featured_image | image_url: width: 900 }}"
+               srcset="{{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 900 }} 900w, {{ product.featured_image | image_url: width: 1200 }} 1200w"
+               sizes="(min-width: 900px) 520px, 100vw"
+               alt="{{ product.title | escape }}"
+               width="900" height="900" loading="eager">
+        {% else %}
+          <div class="product__placeholder" aria-hidden="true">
+            <img src="{{ 'logo-zz.png' | asset_url }}" alt="{{ product.title | escape }}" width="200" height="200">
+          </div>
+        {% endif %}
+      </div>
       {% if product.images.size > 1 %}
         <div class="product__thumbs">
-          {% for img in product.images limit: 5 %}
-            <img src="{{ img | image_url: width: 200 }}" data-full="{{ img | image_url: width: 1200 }}" alt="{{ product.title }}" width="200" height="200" loading="lazy">
+          {% for img in product.images limit: 6 %}
+            <button type="button" class="product__thumb" data-full="{{ img | image_url: width: 900 }}" aria-label="Ver imagen {{ forloop.index }}">
+              <img src="{{ img | image_url: width: 160 }}" alt="{{ product.title | escape }} - {{ forloop.index }}" width="160" height="160" loading="lazy">
+            </button>
           {% endfor %}
         </div>
       {% endif %}
@@ -15,9 +28,10 @@
     <div class="product__info">
       <h1 class="product__title">{{ product.title }}</h1>
       <div class="product__price" data-price>
-        {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}
         {{ product.price | money }}
+        {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}
       </div>
+      {% unless product.available %}<div class="product__soldout">Agotado</div>{% endunless %}
       {% form 'product', product %}
         {% if product.variants.size > 1 %}
           <div class="product__variants">
@@ -44,10 +58,26 @@
           </button>
         </div>
       {% endform %}
-      <div class="product__desc">{{ product.description }}</div>
+      {% if product.description != blank %}
+        <div class="product__desc rte">{{ product.description }}</div>
+      {% endif %}
     </div>
   </div>
 </section>
+<script>
+  (function(){
+    var main = document.getElementById('ProductMainImg');
+    if(!main) return;
+    document.querySelectorAll('.product__thumb').forEach(function(t){
+      t.addEventListener('click', function(){
+        var full = t.getAttribute('data-full');
+        if(full){ main.src = full; main.srcset = ''; }
+        document.querySelectorAll('.product__thumb').forEach(function(x){ x.classList.remove('is-active'); });
+        t.classList.add('is-active');
+      });
+    });
+  })();
+</script>
 {% schema %}
 { "name": "Product", "settings": [], "enabled_on": { "templates": ["product"] } }
 {% endschema %}

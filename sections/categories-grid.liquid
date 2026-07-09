@@ -7,21 +7,41 @@
     </div>
     <div class="cats">
       {% for b in section.blocks %}
-        {%- assign col = collections[b.settings.handle] -%}
-        <a href="{{ routes.root_url }}collections/{{ b.settings.handle }}" class="cat">
+        {%- comment -%} Resolve collection from either the collection picker OR a text handle.
+          Priority: picker > handle text > fallback. This is what makes the block appear
+          after the merchant creates a new collection with the matching handle. {%- endcomment -%}
+        {%- assign col = nil -%}
+        {%- if b.settings.collection != blank -%}
+          {%- assign col = collections[b.settings.collection] -%}
+        {%- elsif b.settings.handle != blank -%}
+          {%- assign col = collections[b.settings.handle] -%}
+        {%- endif -%}
+        {%- assign cat_title = b.settings.title | default: col.title -%}
+        {%- assign cat_url = '' -%}
+        {%- if col and col.handle != blank -%}
+          {%- assign cat_url = col.url -%}
+        {%- elsif b.settings.handle != blank -%}
+          {%- assign cat_url = routes.root_url | append: 'collections/' | append: b.settings.handle -%}
+        {%- else -%}
+          {%- assign cat_url = routes.all_products_collection_url -%}
+        {%- endif -%}
+        {%- if b.settings.hide_if_empty and col == nil -%}{%- continue -%}{%- endif -%}
+        <a href="{{ cat_url }}" class="cat">
           <div class="cat__media">
             {% if b.settings.image %}
-              {{ b.settings.image | image_url: width: 800 | image_tag: alt: b.settings.title, width: 800, height: 1000, loading: 'lazy' }}
+              {{ b.settings.image | image_url: width: 800 | image_tag: alt: cat_title, width: 800, height: 1000, loading: 'lazy' }}
             {% elsif col.image %}
-              {{ col.image | image_url: width: 800 | image_tag: alt: b.settings.title, width: 800, height: 1000, loading: 'lazy' }}
+              {{ col.image | image_url: width: 800 | image_tag: alt: cat_title, width: 800, height: 1000, loading: 'lazy' }}
+            {% elsif col.products.first.featured_image %}
+              {{ col.products.first.featured_image | image_url: width: 800 | image_tag: alt: cat_title, width: 800, height: 1000, loading: 'lazy' }}
             {% else %}
-              <img src="{{ b.settings.fallback_asset | default: 'cat-jugueteria.jpg' | asset_url }}" alt="{{ b.settings.title }}" width="800" height="1000" loading="lazy">
+              <img src="{{ b.settings.fallback_asset | default: 'cat-jugueteria.jpg' | asset_url }}" alt="{{ cat_title }}" width="800" height="1000" loading="lazy">
             {% endif %}
             <div class="cat__overlay"></div>
             {% if b.settings.featured %}<div class="cat__featured">⭐ Destacada</div>{% endif %}
           </div>
           <div class="cat__caption">
-            <h3>{{ b.settings.title }}</h3>
+            <h3>{{ cat_title }}</h3>
             <p>{{ b.settings.subtitle }}</p>
           </div>
         </a>
@@ -44,10 +64,12 @@
       "settings": [
         { "type": "text", "id": "title", "label": "Título" },
         { "type": "text", "id": "subtitle", "label": "Subtítulo" },
-        { "type": "text", "id": "handle", "label": "Collection handle" },
+        { "type": "collection", "id": "collection", "label": "Colección (recomendado)" },
+        { "type": "text", "id": "handle", "label": "Collection handle (alternativa)", "info": "Solo si no elegiste una colección arriba. Usa exactamente el handle de la colección." },
         { "type": "image_picker", "id": "image", "label": "Imagen (opcional)" },
         { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename" },
-        { "type": "checkbox", "id": "featured", "label": "Destacada", "default": false }
+        { "type": "checkbox", "id": "featured", "label": "Destacada", "default": false },
+        { "type": "checkbox", "id": "hide_if_empty", "label": "Ocultar si la colección no existe", "default": false }
       ]
     }
   ],

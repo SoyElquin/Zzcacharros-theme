@@ -1,18 +1,38 @@
 {%- comment -%} Usage: {% render 'product-card', product: product %} {%- endcomment -%}
-<a href="{{ product.url }}" class="product-card">
-  <div class="product-card__media">
-    {% if product.featured_image %}
-      {{ product.featured_image | image_url: width: 500 | image_tag: alt: product.title, loading: 'lazy', width: 500, height: 500 }}
-    {% else %}
-      <img src="{{ 'logo-zz.png' | asset_url }}" alt="{{ product.title }}" loading="lazy">
-    {% endif %}
-  </div>
-  <div class="product-card__body">
-    {% if product.compare_at_price > product.price %}<span class="badge">Oferta</span>{% endif %}
-    <span class="product-card__title">{{ product.title }}</span>
-    <span class="product-card__price">
-      {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}
-      {{ product.price | money }}
-    </span>
-  </div>
-</a>
+{%- assign pc_variant = product.selected_or_first_available_variant -%}
+<div class="product-card">
+  <a href="{{ product.url }}" class="product-card__link" aria-label="{{ product.title | escape }}">
+    <div class="product-card__media">
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 600 | image_tag: alt: product.title, loading: 'lazy', width: 600, height: 600, class: 'product-card__img' }}
+      {% else %}
+        <div class="product-card__placeholder" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+      {% endif %}
+      <div class="product-card__badges">
+        {% if product.compare_at_price > product.price %}<span class="pc-badge pc-badge--red">Oferta</span>{% endif %}
+        {% unless product.available %}<span class="pc-badge pc-badge--black">Agotado</span>{% endunless %}
+      </div>
+    </div>
+    <div class="product-card__body">
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      <div class="product-card__price-wrap">
+        <div class="product-card__price-label">Precio</div>
+        <div class="product-card__price">
+          {{ product.price | money }}
+          {% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}
+        </div>
+      </div>
+    </div>
+  </a>
+  {% if pc_variant %}
+    <form method="post" action="{{ routes.cart_add_url }}" class="product-card__form" data-pc-add>
+      <input type="hidden" name="id" value="{{ pc_variant.id }}">
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" class="product-card__add" {% unless product.available %}disabled{% endunless %}>
+        {% if product.available %}Agregar{% else %}Agotado{% endif %}
+      </button>
+    </form>
+  {% endif %}
+</div>

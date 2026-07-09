@@ -1,4 +1,8 @@
 {%- assign col = collections[section.settings.collection] -%}
+{%- comment -%} Fallback: if the merchant has not set a collection, use the automatic "all" collection so featured products still appear as soon as products are published. {%- endcomment -%}
+{%- if col == nil or col.products.size == 0 -%}
+  {%- assign col = collections.all -%}
+{%- endif -%}
 <section class="section featured">
   <div class="container">
     <div class="section__head-left">

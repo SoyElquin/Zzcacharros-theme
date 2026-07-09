@@ -3,10 +3,24 @@
   <div class="container">
     <div class="quick-cats__grid">
       {% for b in items limit: 8 %}
-        <a class="quick-cat" href="{{ routes.root_url }}collections/{{ b.settings.handle }}">
+        {%- assign qc_col = nil -%}
+        {%- if b.settings.collection != blank -%}
+          {%- assign qc_col = collections[b.settings.collection] -%}
+        {%- elsif b.settings.handle != blank -%}
+          {%- assign qc_col = collections[b.settings.handle] -%}
+        {%- endif -%}
+        {%- assign qc_url = routes.all_products_collection_url -%}
+        {%- if qc_col and qc_col.handle != blank -%}
+          {%- assign qc_url = qc_col.url -%}
+        {%- elsif b.settings.handle != blank -%}
+          {%- assign qc_url = routes.root_url | append: 'collections/' | append: b.settings.handle -%}
+        {%- endif -%}
+        <a class="quick-cat" href="{{ qc_url }}">
           <div class="quick-cat__img">
             {% if b.settings.image %}
               {{ b.settings.image | image_url: width: 160 | image_tag: alt: b.settings.label, width: 80, height: 80, loading: 'lazy' }}
+            {% elsif qc_col.image %}
+              {{ qc_col.image | image_url: width: 160 | image_tag: alt: b.settings.label, width: 80, height: 80, loading: 'lazy' }}
             {% else %}
               <img src="{{ b.settings.fallback_asset | default: 'cat-jugueteria.jpg' | asset_url }}" alt="{{ b.settings.label }}" width="80" height="80" loading="lazy">
             {% endif %}
@@ -27,7 +41,8 @@
       "name": "Categoría",
       "settings": [
         { "type": "text", "id": "label", "label": "Etiqueta", "default": "Categoría" },
-        { "type": "text", "id": "handle", "label": "Collection handle", "default": "all" },
+        { "type": "collection", "id": "collection", "label": "Colección (recomendado)" },
+        { "type": "text", "id": "handle", "label": "Collection handle (alternativa)", "default": "all" },
         { "type": "image_picker", "id": "image", "label": "Imagen" },
         { "type": "text", "id": "fallback_asset", "label": "Fallback asset filename", "default": "cat-jugueteria.jpg" }
       ]
